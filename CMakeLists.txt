@@ -32,6 +32,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${EXECUTABLE_OUTPUT_PATH}")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake Targets")
 
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
+
 ###############################################################################
 #
 # project settings
@@ -171,7 +174,10 @@ else()
 endif()
 
 find_package(OpenCL QUIET)
-find_package(LibArchive)
+
+# find_package(LibArchive)
+set(LibArchive_INCLUDE_DIR, /usr/local/opt/libarchive/lib)
+
 if(LibArchive_FOUND)
     set(HAVE_LIBARCHIVE ON)
 endif()

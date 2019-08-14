@@ -1,6 +1,12 @@
 #
 # tesseract
 #
+set(ICU_INCLUDE_DIR /usr/local/opt/icu4c/include)
+set(ICU_LIBRARY /usr/local/opt/icu4c/lib)
+set(_ICU_REQUIRED_LIBS_FOUND On)
+list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/icu4c)
+list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/libffi)
+link_directories(/usr/local/opt/gettext/lib)
 
 if (CPPAN_BUILD)
     set(ICU_FOUND 1)
@@ -60,7 +66,7 @@ endif()
 ########################################
 
 add_library                 (tessopt tessopt.cpp tessopt.h)
-project_group               (tessopt "Training Tools")
+source_group               (tessopt "Training Tools")
 
 
 ########################################
@@ -75,7 +81,7 @@ set(common_training_src
 )
 add_library                 (common_training ${common_training_src})
 target_link_libraries       (common_training libtesseract tessopt)
-project_group               (common_training "Training Tools")
+source_group               (common_training "Training Tools")
 
 
 ########################################
@@ -84,7 +90,7 @@ project_group               (common_training "Training Tools")
 
 add_executable              (ambiguous_words ambiguous_words.cpp)
 target_link_libraries       (ambiguous_words libtesseract)
-project_group               (ambiguous_words "Training Tools")
+source_group               (ambiguous_words "Training Tools")
 install                     (TARGETS ambiguous_words RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -94,7 +100,7 @@ install                     (TARGETS ambiguous_words RUNTIME DESTINATION bin LIB
 
 add_executable              (classifier_tester classifier_tester.cpp)
 target_link_libraries       (classifier_tester common_training)
-project_group               (classifier_tester "Training Tools")
+source_group               (classifier_tester "Training Tools")
 install                     (TARGETS classifier_tester RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -104,7 +110,7 @@ install                     (TARGETS classifier_tester RUNTIME DESTINATION bin L
 
 add_executable              (combine_tessdata combine_tessdata.cpp)
 target_link_libraries       (combine_tessdata libtesseract)
-project_group               (combine_tessdata "Training Tools")
+source_group               (combine_tessdata "Training Tools")
 install                     (TARGETS combine_tessdata RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -114,7 +120,7 @@ install                     (TARGETS combine_tessdata RUNTIME DESTINATION bin LI
 
 add_executable              (cntraining cntraining.cpp)
 target_link_libraries       (cntraining common_training)
-project_group               (cntraining "Training Tools")
+source_group               (cntraining "Training Tools")
 install                     (TARGETS cntraining RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -124,7 +130,7 @@ install                     (TARGETS cntraining RUNTIME DESTINATION bin LIBRARY 
 
 add_executable              (dawg2wordlist dawg2wordlist.cpp)
 target_link_libraries       (dawg2wordlist libtesseract)
-project_group               (dawg2wordlist "Training Tools")
+source_group               (dawg2wordlist "Training Tools")
 install                     (TARGETS dawg2wordlist RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -134,7 +140,7 @@ install                     (TARGETS dawg2wordlist RUNTIME DESTINATION bin LIBRA
 
 add_executable              (mftraining mftraining.cpp mergenf.cpp mergenf.h)
 target_link_libraries       (mftraining common_training)
-project_group               (mftraining "Training Tools")
+source_group               (mftraining "Training Tools")
 install                     (TARGETS mftraining RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -144,7 +150,7 @@ install                     (TARGETS mftraining RUNTIME DESTINATION bin LIBRARY 
 
 add_executable              (shapeclustering shapeclustering.cpp)
 target_link_libraries       (shapeclustering common_training)
-project_group               (shapeclustering "Training Tools")
+source_group               (shapeclustering "Training Tools")
 install                     (TARGETS shapeclustering RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -154,7 +160,7 @@ install                     (TARGETS shapeclustering RUNTIME DESTINATION bin LIB
 
 add_executable              (wordlist2dawg wordlist2dawg.cpp)
 target_link_libraries       (wordlist2dawg libtesseract)
-project_group               (wordlist2dawg "Training Tools")
+source_group               (wordlist2dawg "Training Tools")
 install                     (TARGETS wordlist2dawg RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -194,7 +200,7 @@ target_link_libraries       (unicharset_training common_training ${ICU_LIBRARIES
 else()
 target_link_libraries       (unicharset_training common_training pvt.cppan.demo.unicode.icu.i18n)
 endif()
-project_group               (unicharset_training "Training Tools")
+source_group               (unicharset_training "Training Tools")
 
 
 ########################################
@@ -203,7 +209,7 @@ project_group               (unicharset_training "Training Tools")
 
 add_executable              (combine_lang_model combine_lang_model.cpp)
 target_link_libraries       (combine_lang_model unicharset_training)
-project_group               (combine_lang_model "Training Tools")
+source_group               (combine_lang_model "Training Tools")
 install                     (TARGETS combine_lang_model RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -213,7 +219,7 @@ install                     (TARGETS combine_lang_model RUNTIME DESTINATION bin 
 
 add_executable              (lstmeval lstmeval.cpp)
 target_link_libraries       (lstmeval unicharset_training)
-project_group               (lstmeval "Training Tools")
+source_group               (lstmeval "Training Tools")
 install                     (TARGETS lstmeval RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -223,7 +229,7 @@ install                     (TARGETS lstmeval RUNTIME DESTINATION bin LIBRARY DE
 
 add_executable              (lstmtraining lstmtraining.cpp)
 target_link_libraries       (lstmtraining unicharset_training)
-project_group               (lstmtraining "Training Tools")
+source_group               (lstmtraining "Training Tools")
 install                     (TARGETS lstmtraining RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -233,7 +239,7 @@ install                     (TARGETS lstmtraining RUNTIME DESTINATION bin LIBRAR
 
 add_executable              (set_unicharset_properties set_unicharset_properties.cpp)
 target_link_libraries       (set_unicharset_properties unicharset_training)
-project_group               (set_unicharset_properties "Training Tools")
+source_group               (set_unicharset_properties "Training Tools")
 install                     (TARGETS set_unicharset_properties RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -243,7 +249,7 @@ install                     (TARGETS set_unicharset_properties RUNTIME DESTINATI
 
 add_executable              (unicharset_extractor unicharset_extractor.cpp)
 target_link_libraries       (unicharset_extractor libtesseract tessopt unicharset_training)
-project_group               (unicharset_extractor "Training Tools")
+source_group               (unicharset_extractor "Training Tools")
 install                     (TARGETS unicharset_extractor RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 
@@ -301,7 +307,7 @@ endif()
 if (CPPAN_BUILD)
 target_link_libraries       (text2image pvt.cppan.demo.gnome.pango.pangocairo)
 endif()
-project_group               (text2image "Training Tools")
+source_group               (text2image "Training Tools")
 install                     (TARGETS text2image RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 endif()
